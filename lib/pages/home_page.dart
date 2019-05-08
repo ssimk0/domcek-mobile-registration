@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Scan(),
-              this._model.hasParticipantData() ? UploadDataButton() : DownloadDataButton(_model)
+              this._model.hasParticipantData() ? UploadDataButton() : DownloadDataButton()
             ],
           )
       ),

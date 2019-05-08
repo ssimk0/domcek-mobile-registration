@@ -54,12 +54,15 @@ class DownloadDataPageState extends State<DownloadDataPage> {
                       textColor: Colors.white,
                       splashColor: Colors.blueGrey,
                       onPressed: () async {
+                        print('here');
                         if (_formKey.currentState.validate()) {
                           try {
+                            print('fetching');
                             await model
                                 .fetchParticipants(tokenController.text);
                             Navigator.pop(context);
                           } catch (e) {
+                            print(e);
                            _error = 'Nepodarilo sa stiahnuť data, skus znova alebo kontaktuj niekoho s registracie';
                           }
                         }

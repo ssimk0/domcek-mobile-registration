@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Scan extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return ScanState();
@@ -24,21 +23,27 @@ class ScanState extends State<Scan> {
     return ScopedModelDescendant<MainModel>(
         builder: (BuildContext context, Widget child, MainModel model) {
       return Column(
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Row(
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              error != '' && error != null ? Text(error, style: TextStyle(color: Colors.red)) : Text('')
+              error != '' && error != null
+                  ? Text(error, style: TextStyle(color: Colors.red))
+                  : Text('')
             ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: RaisedButton(
-                color: Colors.blue,
-                textColor: Colors.white,
-                splashColor: Colors.blueGrey,
-                onPressed: () => scan(model),
-                child: const Text('SCAN QR CODE')),
-          )
+          SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: RaisedButton(
+                    color: Colors.blue,
+                    textColor: Colors.white,
+                    splashColor: Colors.blueGrey,
+                    onPressed: () => scan(model),
+                    child: const Text('SCAN QR CODE')),
+              ))
         ],
       );
     });
@@ -62,7 +67,8 @@ class ScanState extends State<Scan> {
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
-          this.error = 'Nemáš povolenie použivať kameru v aplikácii, to si zmeň v nastaveniach telefónu!';
+          this.error =
+              'Nemáš povolenie použivať kameru v aplikácii, to si zmeň v nastaveniach telefónu!';
         });
       } else {
         setState(() => this.error = 'Unknown error: $e');

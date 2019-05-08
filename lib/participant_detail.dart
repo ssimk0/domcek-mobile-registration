@@ -18,8 +18,7 @@ class ParticipantDetail extends StatelessWidget {
       body: Center(
           child: this.participant != null
               ? this.getParticipant(context)
-              : this.notFound(context)
-      ),
+              : this.notFound(context)),
     );
   }
 
@@ -36,22 +35,29 @@ class ParticipantDetail extends StatelessWidget {
   }
 
   Widget getParticipant(BuildContext context) {
-    return ListView(children: <Widget>[
-      Row(
-        children: <Widget>[Text('Meno: '), Text(this.participant.firstName)],
-      ),
-      Row(
-        children: <Widget>[
-          Text('PaymentNumber: '),
-          Text(this.participant.paymentNumber)
-        ],
-      ),
-      RaisedButton(
-          color: Colors.blue,
-          textColor: Colors.white,
-          splashColor: Colors.blueGrey,
-          onPressed: (() => Navigator.pop(context)),
-          child: const Text('Back')),
-    ]);
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: ListView(children: <Widget>[
+        Row(
+          children: <Widget>[
+            Text('Meno: ', style: TextStyle(fontWeight: FontWeight.bold),),
+            Text(this.participant.firstName)],
+        ),
+        Row(
+          children: <Widget>[
+            Text('PaymentNumber: ', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(this.participant.paymentNumber)
+          ],
+        ),
+        RaisedButton(
+            color: Colors.blue,
+            textColor: Colors.white,
+            splashColor: Colors.blueGrey,
+            onPressed: (() => {
+              // register it
+            }),
+            child: const Text('Register')),
+      ]),
+    );
   }
 }

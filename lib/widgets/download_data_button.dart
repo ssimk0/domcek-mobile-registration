@@ -3,9 +3,6 @@ import 'package:domcek_registration_mobile/scoped-models/main.dart';
 import 'package:flutter/material.dart';
 
 class DownloadDataButton extends StatelessWidget {
-  MainModel model;
-
-  DownloadDataButton(this.model);
 
   @override
   Widget build(BuildContext context) {

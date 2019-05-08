@@ -32,11 +32,13 @@ mixin ParticipantModel on ConnectedParticipantModel {
   }
 
   Future<void> fetchParticipants(String token) async {
-    final response = await http.get('https://api.domcek.org/api/registration/events/103/participants/sync?token=' + token);
+    final response = await http.get('https://api.domcek.org/api/registration/events/participants/sync?token=' + token);
     if (response.statusCode == 200) {
       _participants = [];
       var data = _storage.parseDataFromString(response.body, dataAlias: PARTICIPANT_ALIAS);
       data.forEach((item) => _participants.add(Participant.fromJson(item)));
+      print(_participants);
+      return;
     } else {
       // If that response was not OK, throw an error.
       throw Exception('Failed to load post');
