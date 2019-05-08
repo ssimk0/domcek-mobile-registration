@@ -2,11 +2,9 @@
 import 'package:domcek_registration_mobile/model/participant.dart';
 
 abstract class Storage {
-  List<Participant> data = [];
+  Map<String,List<dynamic>> _data = {};
 
-  parseDataFromString(String jsonString, {shouldSave = true});
+  List<dynamic> parseDataFromString(String jsonString, { String dataAlias = null, shouldSave = true});
 
-  Participant findByPaymentNumber(String paymentNumber);
-
-  bool isEmpty();
+  Map<String,List<dynamic>> get data;
 }

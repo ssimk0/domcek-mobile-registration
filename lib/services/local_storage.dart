@@ -5,7 +5,7 @@ import 'package:domcek_registration_mobile/model/participant.dart';
 import 'storage.dart';
 
 class LocalStorage implements Storage {
-  List<Participant> data = [];
+  Map<String,List<dynamic>> _data = {};
 
   LocalStorage() {
     this._read();
@@ -24,27 +24,20 @@ class LocalStorage implements Storage {
     }
   }
 
-  parseDataFromString(String jsonString, {shouldSave=true}) {
-    List<Participant> participants = [];
-    this.data = [];
+  parseDataFromString(String jsonString, {String dataAlias = null, shouldSave=true}) {
+    var data = json.decode(jsonString);
 
-    List<dynamic> data = json.decode(jsonString);
-    data.forEach((item) => participants.add(Participant.fromJson(item)));
-
-    this.data = participants;
+    if (dataAlias != null) {
+      this._data[dataAlias] = data;
+    } else {
+      this._data = data;
+    }
 
     if (shouldSave) {
-      this._save(jsonString);
+      this._save(json.encode(this._data));
     }
-  }
 
-  Participant findByPaymentNumber(String paymentNumber) {
-     var data = this.data.where((participant) {
-        print(participant.paymentNumber);
-        return participant.paymentNumber == paymentNumber;
-     });
-     print(paymentNumber);
-     return data.length > 0 ? data.first : null;
+    return data;
   }
 
   _save(data) async {
@@ -54,7 +47,7 @@ class LocalStorage implements Storage {
   }
 
   @override
-  bool isEmpty() {
-    return this.data.length == 0;
+  Map<String, List<dynamic>> get data {
+    return Map.from(this._data);
   }
 }

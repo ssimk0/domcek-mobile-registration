@@ -2,7 +2,7 @@ import 'package:domcek_registration_mobile/model/participant.dart';
 import 'package:flutter/material.dart';
 
 class ParticipantDetail extends StatelessWidget {
-  Participant participant;
+  final Participant participant;
 
   ParticipantDetail(this.participant);
 
