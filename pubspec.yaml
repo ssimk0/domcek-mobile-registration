@@ -28,6 +28,7 @@ dependencies:
   qr_flutter: ^1.1.6
   http: ^0.12.0
   scoped_model: ^1.0.1
+  flutter_html: ^0.9.6
 
 dev_dependencies:
   flutter_test:

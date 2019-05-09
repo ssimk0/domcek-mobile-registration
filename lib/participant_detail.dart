@@ -1,5 +1,6 @@
 import 'package:domcek_registration_mobile/model/participant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class ParticipantDetail extends StatelessWidget {
   final Participant participant;
@@ -40,13 +41,59 @@ class ParticipantDetail extends StatelessWidget {
       child: ListView(children: <Widget>[
         Row(
           children: <Widget>[
-            Text('Meno: ', style: TextStyle(fontWeight: FontWeight.bold),),
-            Text(this.participant.firstName)],
+            Text(
+              'Meno: ',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(this.participant.firstName)
+          ],
         ),
         Row(
           children: <Widget>[
-            Text('PaymentNumber: ', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text('PaymentNumber: ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
             Text(this.participant.paymentNumber)
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Text('Zaplatil: ', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(this.participant.paid.toString())
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Text('Potrebuje doplatiť: ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(this.participant.needPay.toString())
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Text('Dobrovolnik: ',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(this.participant.volunteerType != null &&
+                    this.participant.volunteerType != ''
+                ? this.participant.volunteerType
+                : 'Nie')
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Text('Skupinka: ', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(this.participant.groupName != null
+                ? this.participant.groupName
+                : '')
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Text('Poznamka: ', style: TextStyle(fontWeight: FontWeight.bold)),
+            Expanded(
+                child: Html(
+                    data: this.participant.note != null
+                        ? this.participant.note
+                        : '')),
           ],
         ),
         RaisedButton(
@@ -54,8 +101,8 @@ class ParticipantDetail extends StatelessWidget {
             textColor: Colors.white,
             splashColor: Colors.blueGrey,
             onPressed: (() => {
-              // register it
-            }),
+                  // register it
+                }),
             child: const Text('Register')),
       ]),
     );

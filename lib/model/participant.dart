@@ -35,7 +35,7 @@ class Participant {
       note: json['note'],
       needPay: json['need_pay'],
       paid: json['paid'],
-      volunteerType: json['volunteer_type_id'].toString(),
+      volunteerType: json['name'].toString(),
       groupName: json['group_name'],
       onRegistration: json['on_registration'],
       wasOnEvent: json['was_on_event'] == 1,
