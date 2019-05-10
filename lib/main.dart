@@ -27,7 +27,7 @@ class MyAppState extends State<MyApp> {
         model: _model,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'QR Generator-Scanner',
+          title: 'Registrácia Domček',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),

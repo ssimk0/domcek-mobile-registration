@@ -2,10 +2,10 @@ import 'package:domcek_registration_mobile/model/participant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-class ParticipantDetail extends StatelessWidget {
+class ParticipantDetailPage extends StatelessWidget {
   final Participant participant;
 
-  ParticipantDetail(this.participant);
+  ParticipantDetailPage(this.participant);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class ParticipantDetail extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            Text('PaymentNumber: ',
+            Text('Variabilný symbol: ',
                 style: TextStyle(fontWeight: FontWeight.bold)),
             Text(this.participant.paymentNumber)
           ],
@@ -103,7 +103,7 @@ class ParticipantDetail extends StatelessWidget {
             onPressed: (() => {
                   // register it
                 }),
-            child: const Text('Register')),
+            child: const Text('Registrovať')),
       ]),
     );
   }

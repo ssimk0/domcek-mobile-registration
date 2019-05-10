@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('QR Code Scanner & Generator'),
+        title: Text('Registrácia Domček'),
       ),
       body: Center(
           child:

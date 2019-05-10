@@ -24,10 +24,8 @@ mixin ParticipantModel on ConnectedParticipantModel {
 
   Participant findByPaymentNumber(String paymentNumber) {
      var data = this._participants.where((participant) {
-        print(participant.paymentNumber);
         return participant.paymentNumber == paymentNumber;
      });
-     print(paymentNumber);
      return data.length > 0 ? data.first : null;
   }
 
@@ -37,7 +35,7 @@ mixin ParticipantModel on ConnectedParticipantModel {
       _participants = [];
       var data = _storage.parseDataFromString(response.body, dataAlias: PARTICIPANT_ALIAS);
       data.forEach((item) => _participants.add(Participant.fromJson(item)));
-      print(_participants);
+      notifyListeners();
       return;
     } else {
       // If that response was not OK, throw an error.

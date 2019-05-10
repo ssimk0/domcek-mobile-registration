@@ -1,5 +1,4 @@
 import 'package:domcek_registration_mobile/pages/download_data_page.dart';
-import 'package:domcek_registration_mobile/scoped-models/main.dart';
 import 'package:flutter/material.dart';
 
 class DownloadDataButton extends StatelessWidget {

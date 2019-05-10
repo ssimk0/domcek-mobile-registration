@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:domcek_registration_mobile/pages/ParticipantDetailPage.dart';
 import 'package:flutter/services.dart';
-import 'package:domcek_registration_mobile/participant_detail.dart';
 import 'package:domcek_registration_mobile/scoped-models/main.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -42,7 +42,7 @@ class ScanState extends State<Scan> {
                     textColor: Colors.white,
                     splashColor: Colors.blueGrey,
                     onPressed: () => scan(model),
-                    child: const Text('SCAN QR CODE')),
+                    child: const Text('Naskenovať QR')),
               ))
         ],
       );
@@ -58,11 +58,11 @@ class ScanState extends State<Scan> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => ParticipantDetail(
+              builder: (context) => ParticipantDetailPage(
                   model.findByPaymentNumber(utf8.decode(decoded)))),
         );
       } else {
-        setState(() => this.error = 'Please first download a data');
+        setState(() => this.error = 'Najprv musíš stiahnuť data');
       }
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {
