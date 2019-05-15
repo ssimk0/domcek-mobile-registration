@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:barcode_scan/barcode_scan.dart';
-import 'package:domcek_registration_mobile/pages/ParticipantDetailPage.dart';
+import 'package:domcek_registration_mobile/pages/participant_detail_page.dart';
 import 'package:flutter/services.dart';
 import 'package:domcek_registration_mobile/scoped-models/main.dart';
 import 'package:flutter/material.dart';
@@ -74,8 +74,7 @@ class ScanState extends State<Scan> {
         setState(() => this.error = 'Unknown error: $e');
       }
     } on FormatException {
-      setState(() => this.error =
-          'null (User returned using the "back"-button before scanning anything. Result)');
+      // returned with back button
     } catch (e) {
       setState(() => this.error = 'Unknown error: $e');
     }

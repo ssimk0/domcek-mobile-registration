@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:domcek_registration_mobile/model/participant.dart';
 import 'package:domcek_registration_mobile/services/local_storage.dart';
 import 'package:domcek_registration_mobile/services/storage.dart';
@@ -10,13 +12,26 @@ const String PARTICIPANT_ALIAS = 'participants';
 mixin ConnectedParticipantModel on Model {
 
   List<Participant> _participants = [];
+  bool loading = false;
   Storage _storage;
  // bool _isLoading = true;
 
-  init() {
-    this._storage = LocalStorage();
-    this._participants = this._storage.data[PARTICIPANT_ALIAS];
+ init() async {
+    loading = true;
+    _storage = LocalStorage();
+    await _storage.init();
+
+    if (_storage.data[PARTICIPANT_ALIAS] != null) {
+      var list = _storage.data[PARTICIPANT_ALIAS];
+      list.forEach((item) => _participants.add(Participant.fromJson(item)));
+    }
+
+    loading = false;
     notifyListeners();
+  }
+
+  void saveData() {
+    this._storage.parseDataFromString(json.encode(this._participants), shouldSave: true, dataAlias: PARTICIPANT_ALIAS);
   }
 }
 
@@ -34,17 +49,25 @@ mixin ParticipantModel on ConnectedParticipantModel {
     if (response.statusCode == 200) {
       _participants = [];
       var data = _storage.parseDataFromString(response.body, dataAlias: PARTICIPANT_ALIAS);
-      data.forEach((item) => _participants.add(Participant.fromJson(item)));
+      data[PARTICIPANT_ALIAS].forEach((item) => _participants.add(Participant.fromJson(item)));
       notifyListeners();
       return;
     } else {
       // If that response was not OK, throw an error.
-      throw Exception('Failed to load post');
+      throw Exception('Failed to download post');
     }
   }
 
   Future<void> syncParticipants(String token) async {
-
+    final response = await http.put('https://api.domcek.org/api/registration/events/participants/sync?token=' + token, body: json.encode({'data': this._storage.data}));
+    if (response.statusCode == 200) {
+      await this._storage.clear();
+      notifyListeners();
+      return;
+    } else {
+      // If that response was not OK, throw an error.
+      throw Exception('Failed to upload data');
+    }
   }
 
   bool hasParticipantData() {

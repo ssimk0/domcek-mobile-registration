@@ -25,17 +25,31 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScopedModel<MainModel>(
         model: _model,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Registrácia Domček',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: HomePage(_model),
-          onUnknownRoute: (RouteSettings settings) {
-            return MaterialPageRoute(
-                builder: (BuildContext context) => HomePage(_model));
-          },
-        ));
+        child:
+            ScopedModelDescendant<MainModel>(builder: (context, child, model) {
+          return model.loading
+              ? this._buildLoading()
+              : this._buildContent(model);
+        }));
+  }
+
+  Widget _buildLoading() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildContent(MainModel model) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Registrácia Domček',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: HomePage(model),
+        onUnknownRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+              builder: (BuildContext context) => HomePage(model));
+        });
   }
 }
