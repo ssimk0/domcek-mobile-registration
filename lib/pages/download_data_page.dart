@@ -53,9 +53,9 @@ class DownloadDataPageState extends State<DownloadDataPage> {
                         if (_formKey.currentState.validate()) {
                           try {
                             await model.fetchParticipants(tokenController.text);
+                            tokenController.clear();
                             Navigator.pop(context);
                           } catch (e) {
-                            print(e);
                             _error =
                                 'Nepodarilo sa stiahnuť data, skus znova alebo kontaktuj niekoho s registracie';
                           }

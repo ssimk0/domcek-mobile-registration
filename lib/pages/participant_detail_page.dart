@@ -23,15 +23,17 @@ class ParticipantDetailPage extends StatelessWidget {
   }
 
   Widget notFound(BuildContext context) {
-    return ListView(children: <Widget>[
-      Text('Nebol najdeny'),
-      RaisedButton(
-          color: Colors.blue,
-          textColor: Colors.white,
-          splashColor: Colors.blueGrey,
-          onPressed: (() => Navigator.pop(context)),
-          child: const Text('Back')),
-    ]);
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
+        child: ListView(children: <Widget>[
+          Text('Nebol najdeny'),
+          RaisedButton(
+              color: Colors.blue,
+              textColor: Colors.white,
+              splashColor: Colors.blueGrey,
+              onPressed: (() => Navigator.pop(context)),
+              child: const Text('Back')),
+        ]));
   }
 
   Widget getParticipant(BuildContext context) {
@@ -116,8 +118,24 @@ class ParticipantDetailPage extends StatelessWidget {
             ],
           ),
         ),
-        participant.wasOnEvent ? Center( child: Text('Už bol registrovaný', style: TextStyle(color: Colors.green),) ): RegisterAction(this.participant),
-        RegisterAction(this.participant)
+         Padding(
+          padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+          child: Row(
+            children: <Widget>[
+               Text(
+               DateTime.now().year - DateTime.tryParse(this.participant.birthDate).year < 18 ? 'Skontroluj potvrdenie od rodicov' : '',
+                style: TextStyle(color: Colors.red),
+              ),
+            ],
+          ),
+        ),
+        participant.wasOnEvent
+            ? Center(
+                child: Text(
+                'Už bol registrovaný',
+                style: TextStyle(color: Colors.green),
+              ))
+            : RegisterAction(this.participant)
       ]),
     );
   }

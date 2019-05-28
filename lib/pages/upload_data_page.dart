@@ -31,7 +31,13 @@ class UploadDataPageState extends State<UploadDataPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                _error != '' && _error != null ? Text(_error, style: TextStyle(color: Colors.red)) : Text(''),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                  child: _error != '' && _error != null
+                      ? Text(_error, style: TextStyle(color: Colors.red))
+                      : Text(''),
+                ),
                 Padding(
                     padding:
                         EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -56,11 +62,12 @@ class UploadDataPageState extends State<UploadDataPage> {
                         if (_formKey.currentState.validate()) {
                           _error = '';
                           try {
-                            await model
-                                .syncParticipants(tokenController.text);
+                            await model.syncParticipants(tokenController.text);
+                            tokenController.clear();
                             Navigator.pop(context);
                           } catch (e) {
-                            _error = 'Nepodarilo sa nahrať data, skus znova alebo kontaktuj niekoho s registracie';
+                            _error =
+                                'Nepodarilo sa nahrať data, skus znova alebo kontaktuj niekoho s registracie';
                           }
                         }
                       },

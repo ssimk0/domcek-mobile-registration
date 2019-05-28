@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 const String PARTICIPANT_ALIAS = 'participants';
 
 mixin ConnectedParticipantModel on Model {
-
+  String api = 'api.domcek.org';
   List<Participant> _participants = [];
   bool loading = false;
   Storage _storage;
@@ -45,7 +45,7 @@ mixin ParticipantModel on ConnectedParticipantModel {
   }
 
   Future<void> fetchParticipants(String token) async {
-    final response = await http.get('https://api.domcek.org/api/registration/events/participants/sync?token=' + token);
+    final response = await http.get('https://$api/api/registration/events/participants/sync?token=$token');
     if (response.statusCode == 200) {
       _participants = [];
       var data = _storage.parseDataFromString(response.body, dataAlias: PARTICIPANT_ALIAS);
@@ -59,9 +59,14 @@ mixin ParticipantModel on ConnectedParticipantModel {
   }
 
   Future<void> syncParticipants(String token) async {
-    final response = await http.put('https://api.domcek.org/api/registration/events/participants/sync?token=' + token, body: json.encode({'data': this._storage.data}));
+    final response = await http.put(
+        Uri.encodeFull('https://$api/api/registration/events/participants/sync?token=$token'),
+        body: jsonEncode(_storage.data),
+        headers: { "Content-Type" : "application/json"}
+    );
     if (response.statusCode == 200) {
-      await this._storage.clear();
+     // await this._storage.clear();
+      //_participants = null;
       notifyListeners();
       return;
     } else {
