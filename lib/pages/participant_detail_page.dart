@@ -118,7 +118,29 @@ class ParticipantDetailPage extends StatelessWidget {
             ],
           ),
         ),
-         Padding(
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+          child: Row(
+            children: <Widget>[
+               Text('Autobus na puť: ', style: TextStyle(fontWeight: FontWeight.bold)),
+               Text(
+                this.participant.haveBusIn() ? 'Ano' : 'Nie'
+               ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+          child: Row(
+            children: <Widget>[
+               Text('Autobus v nedeľu: ', style: TextStyle(fontWeight: FontWeight.bold)),
+               Text(
+                this.participant.haveBusOut() ? 'Ano' : 'Nie'
+               ),
+            ],
+          ),
+        ),
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
           child: Row(
             children: <Widget>[

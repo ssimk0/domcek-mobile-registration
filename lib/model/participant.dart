@@ -49,7 +49,7 @@ class Participant {
   @JsonKey(name: 'transport_in', nullable: true)
   final dynamic transportIn;
   @JsonKey(name: 'transport_out', nullable: true)
-  final dynamic transportOut;
+  dynamic transportOut;
 
   Participant({
     this.userId,
@@ -68,9 +68,18 @@ class Participant {
     this.transportOut
   });
 
-  register(int amount) {
+  register(int amount, bool bus) {
     this.onRegistration = amount;
     this.wasOnEvent = true;
+    this.transportOut = '11:00';
+  }
+
+  haveBusIn() {
+    return this.transportIn is String && this.transportIn.contains(':');
+  }
+
+  haveBusOut() {
+    return this.transportOut is String && this.transportOut.contains(':');
   }
 
   int get needPayOnRegistration {

@@ -17,6 +17,7 @@ class RegisterAction extends StatefulWidget {
 class _RegisterActionState extends State<RegisterAction> {
   final _formKey = GlobalKey<FormState>();
   final amountController = TextEditingController();
+  bool _bus = false;
   String _error;
 
   @override
@@ -45,7 +46,18 @@ class _RegisterActionState extends State<RegisterAction> {
                               return 'Suma musí byť vyplnená';
                             }
                           },
-                        )),
+                        )
+                    ),
+                    Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: SwitchListTile(
+                          title: const Text('Autobus v nedeľu'),
+                          value: this.widget.participant.haveBusOut(),
+                          onChanged: (bool val) =>
+                              setState(() => _bus = val)
+                        )
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -55,7 +67,7 @@ class _RegisterActionState extends State<RegisterAction> {
                           splashColor: Colors.blueGrey,
                           onPressed: (() {
                             var paid = int.tryParse(this.amountController.text, radix: 10);
-                            this.widget.participant.register(paid);
+                            this.widget.participant.register(paid, _bus);
                             model.saveData();
                             Navigator.pop(context);
                           }),
