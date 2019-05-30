@@ -112,8 +112,8 @@ class ParticipantDetailPage extends StatelessWidget {
               Text('Poznamka: ', style: TextStyle(fontWeight: FontWeight.bold)),
               Expanded(
                   child: Html(
-                      data: this.participant.note != null
-                          ? this.participant.note
+                      data: this.participant.adminNote != null
+                          ? this.participant.adminNote
                           : '')),
             ],
           ),
