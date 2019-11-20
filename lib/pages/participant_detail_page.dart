@@ -56,6 +56,18 @@ class ParticipantDetailPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
           child: Row(
             children: <Widget>[
+              Text(
+                'Meno na menovke: ',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(this.participant.nick != null ? this.participant.nick : '', style: TextStyle( fontSize: 18, color: Colors.red ),)
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+          child: Row(
+            children: <Widget>[
               Text('Variabilný symbol: ',
                   style: TextStyle(fontWeight: FontWeight.bold)),
               Text(this.participant.paymentNumber)
@@ -77,7 +89,7 @@ class ParticipantDetailPage extends StatelessWidget {
             children: <Widget>[
               Text('Potrebuje doplatiť: ',
                   style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(participant.needPayOnRegistration.toString())
+              Text(participant.needPayOnRegistration.toString(), style: TextStyle(fontSize: 18, color: Colors.red))
             ],
           ),
         ),
@@ -101,7 +113,7 @@ class ParticipantDetailPage extends StatelessWidget {
               Text('Skupinka: ', style: TextStyle(fontWeight: FontWeight.bold)),
               Text(this.participant.groupName != null
                   ? this.participant.groupName
-                  : '')
+                  : '', style: TextStyle( fontSize: 18, color: Colors.red ),)
             ],
           ),
         ),
@@ -146,7 +158,7 @@ class ParticipantDetailPage extends StatelessWidget {
             children: <Widget>[
                Text(
                DateTime.now().year - DateTime.tryParse(this.participant.birthDate).year < 18 ? 'Skontroluj potvrdenie od rodicov' : '',
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(color: Colors.red, fontSize: 18),
               ),
             ],
           ),

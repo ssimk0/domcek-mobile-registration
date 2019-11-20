@@ -27,7 +27,8 @@ Participant _$ParticipantFromJson(Map<String, dynamic> json) {
           : Participant.intToBool(json['was_on_event']),
       adminNote: json['admin_note'] as String,
       transportIn: json['transport_in'],
-      transportOut: json['transport_out']);
+      transportOut: json['transport_out'],
+      nick: json['nick'] as String);
 }
 
 Map<String, dynamic> _$ParticipantToJson(Participant instance) =>
@@ -51,5 +52,6 @@ Map<String, dynamic> _$ParticipantToJson(Participant instance) =>
           : Participant.boolToInt(instance.wasOnEvent),
       'admin_note': instance.adminNote,
       'transport_in': instance.transportIn,
-      'transport_out': instance.transportOut
+      'transport_out': instance.transportOut,
+      'nick': instance.nick
     };

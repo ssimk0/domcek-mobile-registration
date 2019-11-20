@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'participant.g.dart';
 
-
+// flutter packages pub run build_runner build
 
 @JsonSerializable()
 class Participant {
@@ -50,6 +50,8 @@ class Participant {
   final dynamic transportIn;
   @JsonKey(name: 'transport_out', nullable: true)
   dynamic transportOut;
+  @JsonKey(name: 'nick', nullable: true)
+  final String nick;
 
   Participant({
     this.userId,
@@ -65,13 +67,16 @@ class Participant {
     this.wasOnEvent,
     this.adminNote,
     this.transportIn,
-    this.transportOut
+    this.transportOut,
+    this.nick
   });
 
   register(int amount, bool bus) {
     this.onRegistration = amount;
     this.wasOnEvent = true;
-    this.transportOut = '11:00';
+    if (bus) {
+      this.transportOut = '11:00';
+    }
   }
 
   haveBusIn() {

@@ -43,8 +43,8 @@ android {
         applicationId "org.domcek.domcek_registration"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 6
-        versionName '1.0.2'
+        versionCode 10
+        versionName '1.0.6'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
